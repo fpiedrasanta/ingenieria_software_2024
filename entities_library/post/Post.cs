@@ -19,4 +19,8 @@ public class Post
     public required User User { get; set; }
 
     public PostStatus PostStatus { get; set; }
+
+    public string LinkVideo { get; set; } = "";
+
+    public entities_library.file_system.File? File { get; set; }
 }
