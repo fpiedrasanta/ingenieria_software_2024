@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using web_api.dto.common;
 using web_api.dto.login;
+using web_api.mock;
+using entities_library.login;
 
 namespace web_api.Controllers;
 
@@ -19,29 +21,31 @@ public class LoginController : ControllerBase
     [HttpPost(Name = "Login")]
     public IActionResult Post(LoginRequestDTO loginRequestDTO)
     {
-        if(loginRequestDTO != null &&
-           loginRequestDTO.mail.ToLower().Equals("fede.piedrasanta@gmail.com") &&
-           loginRequestDTO.password == "TEST1234")
+        foreach(User user in UserMock.Instance.Users)
         {
-            return Ok(new LoginResponseDTO 
+            if(loginRequestDTO != null &&
+               loginRequestDTO.mail.ToLower().Equals(user.Mail) &&
+               user.IsPassword(loginRequestDTO.password))
             {
-                success = true,
-                message = "",
-                id = 1,
-                name = "Federico",
-                surname = "Piedrasanta",
-                description = "Biólogo - Conicet",
-                urlAvatar = "https://placedog.net/500",
-                mail = "fede.piedrasanta@gmail.com"
-            });
+                return Ok(new LoginResponseDTO 
+                {
+                    success = true,
+                    message = "",
+                    id = user.Id,
+                    name = user.Name,
+                    lastName = user.LastName,
+                    description = user.Description,
+                    urlAvatar = "",
+                    mail = user.Mail
+                });
+            }
         }
-        else 
+        
+        
+        return Unauthorized(new ErrorResponseDTO
         {
-            return Unauthorized(new ErrorResponseDTO
-            {
-                success = false,
-                message = "Invalid mail or password"
-            });
-        }
+            success = false,
+            message = "Invalid mail or password"
+        });
     }
 }
