@@ -1,3 +1,5 @@
+using web_api.helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,3 +25,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+Configuracion.GetInstance().Mascara = "#,##0.00"; //Levantar de appconfig.
