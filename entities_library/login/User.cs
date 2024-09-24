@@ -26,7 +26,7 @@ public class User : Person
     private string encrypt(string password)
     {
         //TODO - Fede: Averiguar como encriptar.
-        return password;
+        return password.ToUpper();
     }
     #endregion
 }

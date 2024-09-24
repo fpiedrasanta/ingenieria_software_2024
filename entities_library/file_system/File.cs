@@ -6,5 +6,7 @@ public class File
 
     public required string Path { get; set; }
 
+    public required string Path2 { get; set; }
+
     public FileType? FileType { get; set; }
 }
