@@ -4,7 +4,6 @@ using dao_library.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using web_api.helpers;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
